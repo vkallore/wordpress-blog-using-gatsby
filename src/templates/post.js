@@ -2,6 +2,8 @@ import { graphql } from "gatsby"
 import PropTypes from "prop-types"
 import React, { Component } from "react"
 import Layout from "../layouts"
+import SEO from "../components/seo"
+import { stripHtml } from "../helpers"
 
 class PostTemplate extends Component {
   render() {
@@ -9,6 +11,7 @@ class PostTemplate extends Component {
     // @TODO: STEP #5: Use title and content in Gatsby.
     return (
       <Layout>
+        <SEO title={post.title} description={stripHtml(post.excerpt)} />
         <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
       </Layout>
@@ -29,6 +32,7 @@ export const pageQuery = graphql`
     wordpressPost(id: { eq: $id }) {
       title
       content
+      excerpt
     }
   }
 `

@@ -1,15 +1,14 @@
 let activeEnv =
   process.env.GATSBY_ACTIVE_ENV || process.env.NODE_ENV || "development"
-console.log(`Using environment config: '${activeEnv}'`)
 require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Gatsby WordPress Blog`,
+    description: `Static WordPress blog using Gatsby.js & GraphQL.`,
+    author: `@vkallore`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
