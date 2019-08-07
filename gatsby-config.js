@@ -4,6 +4,9 @@ require("dotenv").config({
   path: `.env.${activeEnv}`,
 })
 
+const wordPressBaseUrl = process.env.WORDPRESS_BASE_URL
+const wordPressProtocol = process.env.WORDPRESS_PROTOCOL
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby WordPress Blog`,
@@ -37,8 +40,8 @@ module.exports = {
       resolve: `gatsby-source-wordpress`,
       options: {
         // Your WordPress source.
-        baseUrl: process.env.WORDPRESS_BASE_URL,
-        protocol: `http`,
+        baseUrl: wordPressBaseUrl,
+        protocol: wordPressProtocol,
         // Only fetches posts, tags and categories from the baseUrl.
         includedRoutes: ["**/posts", "**/tags", "**/categories"],
         // Not using ACF so putting it off.
@@ -48,6 +51,15 @@ module.exports = {
         // If true, then the plugin will source its content on wordpress.com using the JSON REST API V2.
         // If your site is hosted on wordpress.org, then set this to false.
         hostingWPCOM: false,
+      },
+    },
+    {
+      resolve: "gatsby-wpgraphql-inline-images",
+      options: {
+        wordPressUrl: wordPressBaseUrl,
+        uploadsUrl: `${wordPressProtocol}:://${wordPressBaseUrl}wp-content/uploads/`,
+        processPostTypes: ["Page", "Post", "CustomPost"],
+        graphqlTypeName: "WPGraphQL",
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

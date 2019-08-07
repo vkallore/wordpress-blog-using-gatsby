@@ -3,7 +3,9 @@ export const stripHtml = html => {
     return ""
   }
   var doc = new DOMParser().parseFromString(html, "text/html")
-  console.log(html)
-  console.log(doc.body.textContent)
   return doc.body.textContent || ""
 }
+
+export const wordPressBaseUrl = process.env.WORDPRESS_BASE_URL
+export const wordPressUrl = `${process.env.WORDPRESS_PROTOCOL}:://${wordPressBaseUrl}`
+export const wordPressContentUrl = `${wordPressUrl}wp-content/uploads/`
